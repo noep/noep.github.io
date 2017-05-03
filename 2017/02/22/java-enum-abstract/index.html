@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="noep&#39;s post collection">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Java Enum과 JPA - Noep&#39;s Posts
+        
+    </title>
+
+    <link rel="canonical" href="http://noep.github.io/2017/02/22/java-enum-abstract/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('Demo.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#java" title="java">java</a>
+                            
+                              <a class="tag" href="/tags/#enum" title="enum">enum</a>
+                            
+                              <a class="tag" href="/tags/#jpa" title="jpa">jpa</a>
+                            
+                              <a class="tag" href="/tags/#spring" title="spring">spring</a>
+                            
+                        </div>
+                        <h1>Java Enum과 JPA</h1>
+                        <h2 class="subheading">Enum을 스프링 부트와 JPA를 쓸 때 함께 쓰는 방법에 대해 간단하게 정리</h2>
+                        <span class="meta">
+                            Posted by Taehoon Yoo on
+                            2017-02-22
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Noep&#39;s Posts</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3 id="java-enum과-jpa">Java Enum과 JPA</h3>
+<p>java 1.5버전부터(상당히 오래전부터) 추가된 열거형 enum에 대해서 다룬다.</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> JANUARY = <span class="number">1</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FEBRUARY = <span class="number">2</span>;</div></pre></td></tr></table></figure>
+<p>같은 형태의 것들을 좀 더 간결하게 다룰 수 있어 코드 가독성을 향상시킨다.</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> TestEnum &#123;</div><div class="line">    ENUM_NUMBER_ZERO(<span class="string">"첫 번째 열거형"</span>);</div><div class="line">    ENUM_NUMBER_ONE(<span class="string">"두 번째 열거형"</span>);</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="keyword">String</span> message;</div><div class="line"></div><div class="line">    PushConfirm(<span class="keyword">String</span> message) &#123;</div><div class="line">        <span class="keyword">this</span>.message = message;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">String</span> getMessage() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.message;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Test</div><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> test() &#123;</div><div class="line"></div><div class="line">    TestEnum enums = TestEnum.ENUM_NUMBER_ZERO;</div><div class="line"></div><div class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.toString());</div><div class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.name());</div><div class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums);</div><div class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.getMessage());</div><div class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.ordinal());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>실제로 Spring의 HttpStatus를 까보면 좀 더 복잡하지만 대충 이런 구조로 되어있다.<br>
+안에 private 필드를 추가한 뒤 생성자 형태로 입력받아서 사용이 가능하다.<br>
+커스텀 필드 추가에 따른 getter를 구현해놓으면 편하게 내용물을 꺼내쓸 수 있다.</p>
+<p>아래는 Test 코드에 대한 결과 로그이다</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.114</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> <span class="selector-tag">ENUM_NUMBER_ZERO</span></div><div class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> <span class="selector-tag">ENUM_NUMBER_ZERO</span></div><div class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> <span class="selector-tag">ENUM_NUMBER_ZERO</span></div><div class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> 첫 번째 열거형</div><div class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> 0</div></pre></td></tr></table></figure>
+<h3 id="enum은-jpa에서-엔티티-안에-있는-column으로도-맵핑이-가능하다">Enum은 Jpa에서 엔티티 안에 있는 Column으로도 맵핑이 가능하다.</h3>
+<p>그냥 Enum을 쓰면 Ordinal 타입으로 인식한다.(즉 숫자 형태로 인식함)<br>
+이걸 String 형태의 Enum으로 쓰려면</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Enumerated</span>(EnumType.STRING)</div></pre></td></tr></table></figure>
+<p>어노테이션을 이용해서 표시해줘야 한다.</p>
+<p>컬럼 어노테이션을 어떻게 정의하냐에 따라 다르게 쓰이는데</p>
+<ol>
+<li>
+<p>mysql enum을 쓰는 경우 아래에 한줄을 더 해줘서 컬럼 타입을 명시해줘야 함<br>
+이 뒤에 뭔가가 붙게 되는 경우 enum추가할 때마다 번거로워지므로 딱 enum까지가 적당 (이건 상황에 따라서 다르게 쓰면 될듯)</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Column</span>(columnDefinition = <span class="string">"enum"</span>)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li>안해주면 그냥 VARCAHR로 잡아놓는 것 같음(JPA기본전략인듯) 이때는 컬럼 길이정도만 정해주면 됨 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Column</span>(length = <span class="number">5</span>)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>결론적으로 엔티티 선언할 때</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Enumerated</span>(EnumType.STRING)  </div><div class="line"><span class="meta">@Column</span>(columnDefinition = <span class="string">"enum"</span>)  </div><div class="line"><span class="keyword">private</span> TestEnum enums; <span class="comment">//-- 적당한 주석</span></div></pre></td></tr></table></figure>
+<h3 id="또한-컨트롤러-단에서-인자로-받을-수도-있다">또한 컨트롤러 단에서 인자로 받을 수도 있다.</h3>
+<p>Ordinal타입, String 타입 할것없이 다 입력이 된다 심지어</p>
+<ul>
+<li>0,</li>
+<li>“0”,</li>
+<li>&quot;ENUM_NUMBER_ZERO&quot;<br>
+위 3개를 같은 enum으로 인식한다<br>
+이걸 분류하려면 뭘 써야될지는 아직 안해봄</li>
+</ul>
+<p>Enum의 Serialization에 관련하여 아래와 같은 기사를 찾았다.<br>
+<a href="http://chrisjordan.ca/post/50865405944/custom-json-serialization-for-enums-using-jackson" target="_blank" rel="external">custom-json-serialization-for-enums-using-jackson</a><br>
+좀 더 연구해보아야 할 듯 하다만<br>
+간단하게 말해 custom하게 jackson deserializer를 구현해 주어야 하는 것 같다.</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/03/18/tar-gz/" data-toggle="tooltip" data-placement="top" title="리눅스 .tar.gz 사용법 정리">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2016/02/25/11st-filesystem-interface/" data-toggle="tooltip" data-placement="top" title="[공룡책] 11장 2차 저장장치 구조">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#java" title="java">java</a>
+                        
+                          <a class="tag" href="/tags/#enum" title="enum">enum</a>
+                        
+                          <a class="tag" href="/tags/#jpa" title="jpa">jpa</a>
+                        
+                          <a class="tag" href="/tags/#spring" title="spring">spring</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/noep">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Taehoon Yoo 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://noep.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://noep.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
