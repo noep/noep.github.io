@@ -220,36 +220,36 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="java-enum과-jpa">Java Enum과 JPA</h3>
+                <h3><span id="java-enum과-jpa">Java Enum과 JPA</span></h3>
 <p>java 1.5버전부터(상당히 오래전부터) 추가된 열거형 enum에 대해서 다룬다.</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> JANUARY = <span class="number">1</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FEBRUARY = <span class="number">2</span>;</div></pre></td></tr></table></figure>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> JANUARY = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FEBRUARY = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
 <p>같은 형태의 것들을 좀 더 간결하게 다룰 수 있어 코드 가독성을 향상시킨다.</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> TestEnum &#123;</div><div class="line">    ENUM_NUMBER_ZERO(<span class="string">"첫 번째 열거형"</span>);</div><div class="line">    ENUM_NUMBER_ONE(<span class="string">"두 번째 열거형"</span>);</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="keyword">String</span> message;</div><div class="line"></div><div class="line">    PushConfirm(<span class="keyword">String</span> message) &#123;</div><div class="line">        <span class="keyword">this</span>.message = message;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">String</span> getMessage() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.message;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Test</div><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> test() &#123;</div><div class="line"></div><div class="line">    TestEnum enums = TestEnum.ENUM_NUMBER_ZERO;</div><div class="line"></div><div class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.toString());</div><div class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.name());</div><div class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums);</div><div class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.getMessage());</div><div class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.ordinal());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> TestEnum &#123;</span><br><span class="line">    ENUM_NUMBER_ZERO(<span class="string">"첫 번째 열거형"</span>);</span><br><span class="line">    ENUM_NUMBER_ONE(<span class="string">"두 번째 열거형"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">String</span> message;</span><br><span class="line"></span><br><span class="line">    PushConfirm(<span class="keyword">String</span> message) &#123;</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> getMessage() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.message;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Test</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> test() &#123;</span><br><span class="line"></span><br><span class="line">    TestEnum enums = TestEnum.ENUM_NUMBER_ZERO;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.toString());</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.name());</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums);</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.getMessage());</span><br><span class="line">    <span class="built_in">log</span>.info(<span class="string">"&#123;&#125;"</span>,enums.ordinal());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>실제로 Spring의 HttpStatus를 까보면 좀 더 복잡하지만 대충 이런 구조로 되어있다.<br>
 안에 private 필드를 추가한 뒤 생성자 형태로 입력받아서 사용이 가능하다.<br>
 커스텀 필드 추가에 따른 getter를 구현해놓으면 편하게 내용물을 꺼내쓸 수 있다.</p>
 <p>아래는 Test 코드에 대한 결과 로그이다</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.114</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> <span class="selector-tag">ENUM_NUMBER_ZERO</span></div><div class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> <span class="selector-tag">ENUM_NUMBER_ZERO</span></div><div class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> <span class="selector-tag">ENUM_NUMBER_ZERO</span></div><div class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> 첫 번째 열거형</div><div class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> 0</div></pre></td></tr></table></figure>
-<h3 id="enum은-jpa에서-엔티티-안에-있는-column으로도-맵핑이-가능하다">Enum은 Jpa에서 엔티티 안에 있는 Column으로도 맵핑이 가능하다.</h3>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.114</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> <span class="selector-tag">ENUM_NUMBER_ZERO</span></span><br><span class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> <span class="selector-tag">ENUM_NUMBER_ZERO</span></span><br><span class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> <span class="selector-tag">ENUM_NUMBER_ZERO</span></span><br><span class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> 첫 번째 열거형</span><br><span class="line">10<span class="selector-pseudo">:16</span><span class="selector-pseudo">:43.115</span> <span class="selector-attr">[main]</span> <span class="selector-tag">INFO</span> <span class="selector-tag">-</span> 0</span><br></pre></td></tr></table></figure>
+<h3><span id="enum은-jpa에서-엔티티-안에-있는-column으로도-맵핑이-가능하다">Enum은 Jpa에서 엔티티 안에 있는 Column으로도 맵핑이 가능하다.</span></h3>
 <p>그냥 Enum을 쓰면 Ordinal 타입으로 인식한다.(즉 숫자 형태로 인식함)<br>
 이걸 String 형태의 Enum으로 쓰려면</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Enumerated</span>(EnumType.STRING)</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Enumerated</span>(EnumType.STRING)</span><br></pre></td></tr></table></figure>
 <p>어노테이션을 이용해서 표시해줘야 한다.</p>
 <p>컬럼 어노테이션을 어떻게 정의하냐에 따라 다르게 쓰이는데</p>
 <ol>
 <li>
 <p>mysql enum을 쓰는 경우 아래에 한줄을 더 해줘서 컬럼 타입을 명시해줘야 함<br>
 이 뒤에 뭔가가 붙게 되는 경우 enum추가할 때마다 번거로워지므로 딱 enum까지가 적당 (이건 상황에 따라서 다르게 쓰면 될듯)</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Column</span>(columnDefinition = <span class="string">"enum"</span>)</div></pre></td></tr></table></figure>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Column</span>(columnDefinition = <span class="string">"enum"</span>)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <ol start="2">
-<li>안해주면 그냥 VARCAHR로 잡아놓는 것 같음(JPA기본전략인듯) 이때는 컬럼 길이정도만 정해주면 됨 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Column</span>(length = <span class="number">5</span>)</div></pre></td></tr></table></figure>
+<li>안해주면 그냥 VARCAHR로 잡아놓는 것 같음(JPA기본전략인듯) 이때는 컬럼 길이정도만 정해주면 됨 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Column</span>(length = <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>결론적으로 엔티티 선언할 때</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Enumerated</span>(EnumType.STRING)  </div><div class="line"><span class="meta">@Column</span>(columnDefinition = <span class="string">"enum"</span>)  </div><div class="line"><span class="keyword">private</span> TestEnum enums; <span class="comment">//-- 적당한 주석</span></div></pre></td></tr></table></figure>
-<h3 id="또한-컨트롤러-단에서-인자로-받을-수도-있다">또한 컨트롤러 단에서 인자로 받을 수도 있다.</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Enumerated</span>(EnumType.STRING)  </span><br><span class="line"><span class="meta">@Column</span>(columnDefinition = <span class="string">"enum"</span>)  </span><br><span class="line"><span class="keyword">private</span> TestEnum enums; <span class="comment">//-- 적당한 주석</span></span><br></pre></td></tr></table></figure>
+<h3><span id="또한-컨트롤러-단에서-인자로-받을-수도-있다">또한 컨트롤러 단에서 인자로 받을 수도 있다.</span></h3>
 <p>Ordinal타입, String 타입 할것없이 다 입력이 된다 심지어</p>
 <ul>
 <li>0,</li>
@@ -259,7 +259,7 @@
 이걸 분류하려면 뭘 써야될지는 아직 안해봄</li>
 </ul>
 <p>Enum의 Serialization에 관련하여 아래와 같은 기사를 찾았다.<br>
-<a href="http://chrisjordan.ca/post/50865405944/custom-json-serialization-for-enums-using-jackson" target="_blank" rel="external">custom-json-serialization-for-enums-using-jackson</a><br>
+<a href="http://chrisjordan.ca/post/50865405944/custom-json-serialization-for-enums-using-jackson" target="_blank" rel="noopener">custom-json-serialization-for-enums-using-jackson</a><br>
 좀 더 연구해보아야 할 듯 하다만<br>
 간단하게 말해 custom하게 jackson deserializer를 구현해 주어야 하는 것 같다.</p>
 
@@ -491,6 +491,22 @@
 
 
 <!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-111562479-1';
+    var _gaDomain = 'https://noep.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
 
 
 
